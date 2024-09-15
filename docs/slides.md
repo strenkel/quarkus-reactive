@@ -114,10 +114,11 @@ for (int i = 0; i < 1_000_000; i++) {
 
 # Reactive in Quarkus
 
-- Baut auf drei Frameworks auf:
-  - **Netty**: NIO client server framework
-  - **Vert.x**: Event-Loop basiertes Application-Framework
-  - **Mutiny**: Reactive Stream Library
+**Baut auf drei Frameworks auf:**
+
+- **Netty**: NIO client server framework
+- **Vert.x**: Event-Loop basiertes Application-Framework
+- **Mutiny**: Reactive Stream Library
 
 ---
 
@@ -126,6 +127,6 @@ for (int i = 0; i < 1_000_000; i++) {
 - Node.js - Implementierung für die JVM
 - Hieß ursprünglich Node.x
 - Nutzt Netty für IO.
-- Polyplot: Java, JavaScript, Groovy, Ruby, Scala, Kotlin and Ceylon
+- Polyglot: Java, JavaScript, Groovy, Ruby, Scala, Kotlin and Ceylon
 
 ---
