@@ -124,7 +124,7 @@ for (int i = 0; i < 1_000_000; i++) {
 
 # Vert.x
 
-- Node.js - Implementierung für die JVM
+- "Node.js - Implementierung" für die JVM
 - Hieß ursprünglich Node.x
 - Nutzt Netty für IO.
 - Polyglot: Java, JavaScript, Groovy, Ruby, Scala, Kotlin and Ceylon
@@ -159,4 +159,4 @@ for (int i = 0; i < 1_000_000; i++) {
 
 # Links
 
-- https://medium.com/deno-the-complete-reference/quarkus-vs-go-frameworks-hello-world-performance-03b8eb84dec7
+- [Quarkus vs. Go Performance](https://medium.com/deno-the-complete-reference/quarkus-vs-go-frameworks-hello-world-performance-03b8eb84dec7)
