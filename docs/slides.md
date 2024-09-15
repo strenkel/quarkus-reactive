@@ -133,9 +133,9 @@ for (int i = 0; i < 1_000_000; i++) {
 
 # Hello World
 
-- Classic: 120.000
-- Virtual: 115.000
-- Reactive: 135.000
+- Classic: 120.000 rps
+- Virtual: 115.000 rps
+- Reactive: 135.000 rps
 - Go: 120.000
 
 *wrk: 10 threads and 100 connections*
@@ -145,8 +145,8 @@ for (int i = 0; i < 1_000_000; i++) {
 # Hello Wait 1 Second
 
 - Classic: 200 (default) - 8000 Request gleichzeitig
-- Virtual: mehr als 10.000 Requests gleichzeitig
-- Reactive: mehr als 10.000 Request gleichzeitig
+- Virtual: bis zu 15.000 Requests gleichzeitig
+- Reactive: bis zu 15.000 Request gleichzeitig
 
 *quarkus.thread-pool.max-threads=8000 (default ~ 200)*
 
