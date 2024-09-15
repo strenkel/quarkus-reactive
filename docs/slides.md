@@ -130,3 +130,33 @@ for (int i = 0; i < 1_000_000; i++) {
 - Polyglot: Java, JavaScript, Groovy, Ruby, Scala, Kotlin and Ceylon
 
 ---
+
+# Hello World
+
+- Classic: 120.000
+- Virtual: 115.000
+- Reactive: 135.000
+- Go: 120.000
+
+*wrk: 10 threads and 100 connections*
+
+---
+
+# Hello Wait 1 Second
+
+- Classic: 200 (default) - 8000 Request gleichzeitig
+- Virtual: mehr als 10.000 Requests gleichzeitig
+- Reactive: mehr als 10.000 Request gleichzeitig
+
+*quarkus.thread-pool.max-threads=8000 (default ~ 200)*
+
+---
+
+<!-- _class: lead --> 
+# Vielen Dank
+
+---
+
+# Links
+
+- https://medium.com/deno-the-complete-reference/quarkus-vs-go-frameworks-hello-world-performance-03b8eb84dec7
