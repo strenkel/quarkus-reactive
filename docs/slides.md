@@ -31,14 +31,15 @@ style: |
 # Threads in Action
 
 ```java
-for (int i = 0; i < 100_000; i++) {
+for (int i = 0; i < 1_000_000; i++) {
   new Thread(() -> {
     try {
-      Thread.sleep(10_000); // 10 sec
+      Thread.sleep(100_000); // 100 sec
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
-}).start();
+  }).start();
+}
 ```
 
 ---
@@ -47,16 +48,66 @@ for (int i = 0; i < 100_000; i++) {
 
 - OutOfMemoryError nach 9.000 Threads
 - Failed to start the native thread "Thread-9011"
-- 5 ms pro Thread
-- 100 MB pro 1000 Threads
+- 180 ms pro 1.000 Thread
+- 90 MB pro 1.000 Threads
 
 ---
 
 # Lösungen
 
-- Event-Loops
 - Virtual-Threads
+- Eventual Programming
 
 ---
+
+# Lösung 1: Virtual Threads
+
+- Project Loom
+- Java 21
+- JVM-verwaltet
+
+---
+
+# Virtual Threads in Action
+
+```java
+for (int i = 0; i < 1_000_000; i++) {
+  Thread.startVirtualThread(() -> {
+    try {
+      Thread.sleep(100_000); // 100 sec
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
+  });
+}
+```
+
+---
+
+# Thread.startVirtualThread()
+
+- 1.000.000 Virual Threads problemlos möglich
+- 20 ms pro 1.000 VirtualThread
+- 1MB pro 1.000 Virtual Thread
+- 100 x mehr 'Threads' möglich
+- Speicherverbrauch 100 x geringer
+- Erzeugung 10 x schneller
+
+---
+
+# Lösung 2: Eventual Programming
+
+- Event Loop
+- Callbacks
+
+---
+
+# Problem: Callback Hell
+
+### Lösungen
+
+- Promises
+- Async / Await
+- Reactive Streams
 
 
