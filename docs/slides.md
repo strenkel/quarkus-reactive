@@ -47,7 +47,6 @@ for (int i = 0; i < 1_000_000; i++) {
 # Thread.start()
 
 - OutOfMemoryError nach 9.000 Threads
-- Failed to start the native thread "Thread-9011"
 - 180 ms pro 1.000 Thread
 - 90 MB pro 1.000 Threads
 
@@ -89,6 +88,7 @@ for (int i = 0; i < 1_000_000; i++) {
 - 1.000.000 Virual Threads problemlos möglich
 - 20 ms pro 1.000 VirtualThread
 - 1MB pro 1.000 Virtual Thread
+--
 - 100 x mehr 'Threads' möglich
 - Speicherverbrauch 100 x geringer
 - Erzeugung 10 x schneller
@@ -102,23 +102,13 @@ for (int i = 0; i < 1_000_000; i++) {
 
 ---
 
-# Problem: Callback Hell
-
-**Lösungen**
-
-- Promises
-- Async / Await
-- Reactive Streams
-
----
-
 # Reactive in Quarkus
 
 **Baut auf drei Frameworks auf:**
 
-- **Netty**: NIO client server framework
-- **Vert.x**: Event-Loop basiertes Application-Framework
-- **Mutiny**: Reactive Stream Library
+- **Netty**: NIO client server framework (2004)
+- **Vert.x**: Event-Loop basiertes Application-Framework (2011)
+- **Mutiny**: Reactive Stream Library (2019)
 
 ---
 
@@ -126,29 +116,73 @@ for (int i = 0; i < 1_000_000; i++) {
 
 - "Node.js - Implementierung" für die JVM
 - Hieß ursprünglich Node.x
-- Nutzt Netty für IO.
-- Polyglot: Java, JavaScript, Groovy, Ruby, Scala, Kotlin and Ceylon
 
 ---
 
-# Hello World
+# Hello World Endpoint
 
-- Classic: 120.000 rps
-- Virtual: 115.000 rps
-- Reactive: 135.000 rps
+```java
+@GET
+@Blocking // or @NonBlocking or @RunOnVirtualThread
+public String hello() {
+  return "Hello!";
+}
+
+@GET
+public Uni<String> helloReactice() {
+  return Uni.createFrom().item("Hello!");
+}
+```
+
+---
+
+# Requests per Second
+
+- Classic: 120.000
+- Virtual: 115.000
+- Reactive: 135.000
+--
 - Go: 120.000
 
 *wrk: 10 threads and 100 connections*
 
 ---
 
-# Hello Wait 1 Second
+# Hello Wait Endpoint
 
-- Classic: 200 (default) - 8000 Request gleichzeitig
-- Virtual: bis zu 15.000 Requests gleichzeitig
-- Reactive: bis zu 15.000 Request gleichzeitig
+```java
+@GET
+@Blocking // or @RunOnVirtualThread
+public String hello() {
+  TimeUnit.SECONDS.sleep(1);
+  return "Hello!";
+}
+
+@GET
+public Uni<String> helloReactice() {
+  return Uni.createFrom().item("Hello!")
+      .onItem().delayIt().by(Duration.ofSeconds(1));
+}
+```
+
+---
+
+# Max Requests per Second
+
+- Classic: 200 (default) - 8000
+- Virtual: bis zu 15.000
+- Reactive: bis zu 15.000
 
 *quarkus.thread-pool.max-threads=8000 (default ~ 200)*
+*Gemessen mit k6*
+
+---
+
+# Zusammenfassung
+
+- Quarkus ist supersonic
+- Reactive Datenbank-Anbindung keine Empfehlung
+- Reactive Http-Clints nutzen 
 
 ---
 
@@ -160,3 +194,11 @@ for (int i = 0; i < 1_000_000; i++) {
 # Links
 
 - [Quarkus vs. Go Performance](https://medium.com/deno-the-complete-reference/quarkus-vs-go-frameworks-hello-world-performance-03b8eb84dec7)
+
+
+---
+
+# Notes
+
+- Tests auf einem i7-4702MQ Notebook mit 2,2 GHz von 2014
+- Mit Ubuntu 22.04 LTS
