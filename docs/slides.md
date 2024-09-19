@@ -182,7 +182,7 @@ public Uni<String> helloReactice() {
 
 - Quarkus ist supersonic
 - Reactive Datenbank-Anbindung keine Empfehlung
-- Reactive Http-Clints nutzen 
+- Reactive Http-Clients nutzen 
 
 ---
 
@@ -202,3 +202,5 @@ public Uni<String> helloReactice() {
 
 - Tests auf einem i7-4702MQ Notebook mit 2,2 GHz von 2014
 - Mit Ubuntu 22.04 LTS
+- wrk Version 4.2.0
+- go version 1.23.1
