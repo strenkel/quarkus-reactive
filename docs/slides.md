@@ -20,7 +20,6 @@ style: |
 # Java, wir haben ein Problem!
 
 - Java-Threads: Wrapper für OS-Threads
-- Java-Threads sind Platform Threads
 - Threads sind teuer:
   - Hoher Speicherverbrauch
   - Beschränkte Anzahl
@@ -187,7 +186,7 @@ public Uni<String> helloReactice() {
 ---
 
 <!-- _class: lead --> 
-# Vielen Dank
+# Vielen Dank!
 
 ---
 
