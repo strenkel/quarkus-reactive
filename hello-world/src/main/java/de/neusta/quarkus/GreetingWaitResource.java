@@ -18,7 +18,7 @@ public class GreetingWaitResource {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   public String hello() throws InterruptedException {
-      TimeUnit.SECONDS.sleep(1);
+      TimeUnit.MILLISECONDS.sleep(5);
       return "Hello!";
   }
 
@@ -27,7 +27,7 @@ public class GreetingWaitResource {
   @Produces(MediaType.TEXT_PLAIN)
   @RunOnVirtualThread
   public String helloVirtual() throws InterruptedException {
-    TimeUnit.SECONDS.sleep(1);
+    TimeUnit.MILLISECONDS.sleep(5);
     return "Hello!";
   }
 
@@ -39,7 +39,7 @@ public class GreetingWaitResource {
       .item("Hello!")
       .onItem()
       .delayIt()
-      .by(Duration.ofSeconds(1));
+      .by(Duration.ofMillis(5));
   }
 
   @Path("nonblocking")
@@ -47,7 +47,7 @@ public class GreetingWaitResource {
   @Produces(MediaType.TEXT_PLAIN)
   @NonBlocking
   public String helloNonBlocking() throws InterruptedException {
-    TimeUnit.SECONDS.sleep(1);
+    TimeUnit.MILLISECONDS.sleep(5);
     return "Hello!";
   }
 

@@ -53,8 +53,8 @@ for (int i = 0; i < 1_000_000; i++) {
 
 # Lösungen
 
-- Virtual-Threads
 - Eventual Programming
+- Virtual-Threads
 
 ---
 
@@ -88,7 +88,7 @@ for (int i = 0; i < 1_000_000; i++) {
 - 20 ms pro 1.000 VirtualThread
 - 1MB pro 1.000 Virtual Thread
 --
-- 100 x mehr 'Threads' möglich
+- mind. 100 x mehr 'Threads' möglich
 - Speicherverbrauch 100 x geringer
 - Erzeugung 10 x schneller
 
@@ -118,7 +118,7 @@ for (int i = 0; i < 1_000_000; i++) {
 
 ---
 
-# Hello World Endpoint
+# Hello Endpoint
 
 ```java
 @GET
@@ -135,15 +135,16 @@ public Uni<String> helloReactice() {
 
 ---
 
-# Requests per Second
+# Hello Times
 
-- Classic: 120.000
-- Virtual: 115.000
-- Reactive: 135.000
+- Classic: 80us - 120.000rps
+- Virtual: 80us - 115.000rps
+- Reactive: 34us - 135.000rps
 --
-- Go: 120.000
+- Go: 60us - 120.000rps
+- Wildfly: 110us - 40.000rps
 
-*wrk: 10 threads and 100 connections*
+*wrk: 1/1 and 10/100 threads/connections*
 
 ---
 
@@ -153,35 +154,34 @@ public Uni<String> helloReactice() {
 @GET
 @Blocking // or @RunOnVirtualThread
 public String hello() {
-  TimeUnit.SECONDS.sleep(1);
+  TimeUnit.MILLISECONDS.sleep(5);
   return "Hello!";
 }
 
 @GET
 public Uni<String> helloReactice() {
   return Uni.createFrom().item("Hello!")
-      .onItem().delayIt().by(Duration.ofSeconds(1));
+      .onItem().delayIt().by(Duration.ofMillis(5));
 }
 ```
 
 ---
 
-# Max Requests per Second
+# Hello Wait RPS
 
-- Classic: 200 (default) - 8000
-- Virtual: bis zu 15.000
-- Reactive: bis zu 15.000
+- Classic: 39.000 (default) - 85.000
+- Virtual: 115.000
+- Reactive: 98.000
 
-*quarkus.thread-pool.max-threads=8000 (default ~ 200)*
-*Gemessen mit k6*
+*quarkus.thread-pool.max-threads=2000 (default ~ 200)*
+*wrk: 10/1000 threads/connections*
 
 ---
 
 # Zusammenfassung
 
 - Quarkus ist supersonic
-- Reactive Datenbank-Anbindung keine Empfehlung
-- Reactive Http-Clients nutzen 
+- Reactive / Virtual Threads lohnen nur in Spezialfällen 
 
 ---
 
@@ -203,3 +203,6 @@ public Uni<String> helloReactice() {
 - Mit Ubuntu 22.04 LTS
 - wrk Version 4.2.0
 - go version 1.23.1
+- Quarkus 3.16.2
+- Wildfly 34.0.0
+- Java 21
